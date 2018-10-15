@@ -1,0 +1,30 @@
+vonst int N=100005
+vector<pi> a[N]; 
+
+void bfs0_1(int S)
+{
+	deque<int> Q;
+	dis[u]=0;
+	Q.push_back(u);
+
+	while(!Q.empty())
+	{
+      int v=Q.top();
+      Q.pop_front();
+
+      for(int i=0;i<a[v].size();i++)
+      {
+          int p=a[v][i].first,w=a[v][i].second;
+
+          if(dis[p]>dis[u]+w)
+          {
+            dis[p]=dis[u]+w;
+
+            if(w)
+              Q.push_back(p);
+            else
+              Q.push_front(p);
+          }
+      }
+	}
+}
