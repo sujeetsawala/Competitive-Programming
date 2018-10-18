@@ -1,0 +1,39 @@
+const int N=100005;
+int tree[6*N],a[N];
+
+void update(int s, int e, int l, int node, int value)
+{
+	if(s==e)
+	{
+		tree[node]=value;
+		return;
+	}
+
+	int mid=(s+e)/2;
+	if(mid<=l)
+		update(s,mid,l,2*node+1,value);
+	else
+		update(s,mid,l,2*node+2,value);
+
+	tree[node]=max(tree[2*node+1],tree[2*node+2]);
+
+}
+
+int query(int s, int e, int l, int r, int node)
+{
+	
+	if(s>e||s>r||e<l)
+		return 0;
+
+	if(s>=l && e<=r)
+		return tree[node];
+
+	int mid=(s+e)/2;
+
+	int u=query(s, mid, l, r, 2*node+1);
+	int v=query(mid+1, e, l, r, 2*node+2);
+
+	return max(u,v);
+
+}
+
