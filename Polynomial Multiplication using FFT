@@ -1,0 +1,61 @@
+void fft(vector <base>& a, bool invert)
+{
+	int n = a.size();
+	for (int i=1, j=0; i < n; i++)
+	{
+		int bit = n >> 1;
+		for (; j >= bit; bit >>= 1) j -= bit;
+		j += bit;
+		if (i < j) swap(a[i], a[j]);
+	}
+
+	for (int len = 2; len <= n; len <<= 1)
+	{
+		long double ang = 2 * PI / len * (invert ? -1 : 1);
+		base wlen(cos(ang), sin(ang));
+		for (int i = 0; i < n; i += len)
+		{
+			base w(1);
+			for (int j = 0; j < len/2; j++, w *= wlen)
+			{
+				base u = a[i+j], v = a[i+j+len/2] * w;
+				a[i+j] = u + v, a[i+j+len/2] = u - v;
+			}
+		}
+	}
+
+	if (invert)
+		for (int i = 0; i < n; i++)
+			a[i] /= n;
+}
+
+void mul(const vector <int>& a, const vector <int>& b)
+{
+	size_t n = 1;
+	while (n < max(a.size(), b.size())) n <<= 1;
+	n <<= 1;
+	fa.resize(0), fb.resize(0);
+	fa.resize(n), fb.resize(n);
+	int cu = 0;
+	for (int x : a) fa[cu++] = x;
+	cu = 0;
+	for (int x : b) fb[cu++] = x;
+
+	fft(fa, false), fft(fb, false);
+	for (size_t i = 0; i < n; i++) fa[i] *= fb[i];
+	fft(fa, true);
+
+	
+	for (size_t i = 0; i < n; i++)
+	{
+		int u = (long long)(fa[i].real() + 0.5);
+		dis[i]+=u;
+	}
+}
+
+int main()
+{
+  vector<int> a(m),b(n);
+	mul(a,b);
+  return 0;
+}
