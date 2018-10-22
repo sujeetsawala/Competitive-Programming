@@ -13,7 +13,7 @@ void update(int s, int e, int l, int node, int value)
 	if(mid<=l)
 		update(s,mid,l,2*node+1,value);
 	else
-		update(s,mid,l,2*node+2,value);
+		update(mid+1,e,l,2*node+2,value);
 
 	tree[node]=max(tree[2*node+1],tree[2*node+2]);
 
