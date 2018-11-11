@@ -1,0 +1,33 @@
+const int N=100005;
+vector<pi> G[N];
+
+ll d[N];
+
+void dijk(ll S) 
+{
+     
+    ll u, v, i, c, w;     
+    priority_queue< pii, vector< pii >, greater< pii > > Q;
+    
+    for(int i=0;i<N;i++)
+      d[i]=INF;
+  
+    Q.push(mp(0, S));
+    d[S] = 0;     
+    while(!Q.empty()) 
+    {
+        u = Q.top().second;c = Q.top().first; 
+        Q.pop();         
+        if(d[u] < c) continue;
+        for(i = 0; i < G[u].size(); i++) 
+        {
+            v = G[u][i].first; 
+            w = G[u][i].second;
+            if(d[v] > d[u] + w) 
+            {
+                d[v] = d[u] + w;
+                Q.push(mp(d[v], v));
+            }
+        }
+    }
+}
