@@ -1,3 +1,4 @@
+vector <base> fa, fb;
 void fft(vector <base>& a, bool invert)
 {
 	int n = a.size();
@@ -45,17 +46,17 @@ void mul(const vector <int>& a, const vector <int>& b)
 	for (size_t i = 0; i < n; i++) fa[i] *= fb[i];
 	fft(fa, true);
 
-	
-	for (size_t i = 0; i < n; i++)
-	{
-		int u = (long long)(fa[i].real() + 0.5);
-		dis[i]+=u;
-	}
 }
 
 int main()
 {
   vector<int> a(m),b(n);
 	mul(a,b);
+// fa is the final product vector	
+for (size_t i = 0; i < n; i++)
+{
+	int u = (long long)(fa[i].real() + 0.5);
+	dis[i]+=u;
+}		
   return 0;
 }
