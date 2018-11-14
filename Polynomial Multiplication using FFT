@@ -1,4 +1,5 @@
 vector <base> fa, fb;
+int dis[N];
 void fft(vector <base>& a, bool invert)
 {
 	int n = a.size();
