@@ -1,0 +1,12 @@
+Diameter: 
+1).Root the tree and find node at maximum distance.
+2).Now apply a dfs from the found node and find the node at maximum distance.
+
+This gives the diameter.
+
+Radius:
+  Radius=Daimeter/2;
+
+Center:
+1).Find the diameter of the tree.
+2).Take any of the end point and apply binary lifting till the distance between the end point and the selected node is less than radius of the tree.
